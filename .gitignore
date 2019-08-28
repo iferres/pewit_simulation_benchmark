@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But these files
+!.gitignore
+!0.Setup.R
+!1.Simulations.R
+!2.Format-Input.R
+!3.Benchmark-Functions.R
+!4.Run-Benchmarks.R
+!5.Analysis.R
