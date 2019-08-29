@@ -509,7 +509,7 @@ bench_micropan_hmmer <- function(din, dout = 'micropanHmmer_vs_sim', hmm_pfam){
   nams <- do.call(rbind, nams)
   
   hmmout_dir <- paste(dd, 'hmmer_out', sep = '/')
-  if (dir.exists(blout_dir)) unlink(hmmout_dir, recursive = TRUE)
+  if (dir.exists(hmmout_dir)) unlink(hmmout_dir, recursive = TRUE)
   dir.create(hmmout_dir)
   
   runMicropanHmmer <- function(prep_faas, oblf, db){

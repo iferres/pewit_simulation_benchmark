@@ -181,4 +181,27 @@ saveRDS(res, file = 'micropanBlast_vs_sim/MICROPAN_BLAST_AVERAGE.RDS')
 
 
 
+####################
+## MICROPAN HMMER ##
+####################
+
+res <- data.frame(TN = integer(),
+                  FP = integer(),
+                  FN = integer(),
+                  TP = integer(),
+                  Software = character(),
+                  Ne = numeric(),
+                  Replicate = integer(), 
+                  stringsAsFactors = FALSE)
+
+for (i in seq_along(dins)){
+  spl <- strsplit(dins[i], '_')[[1]]
+  res[i, c('TN','FP','FN','TP')] <- unclass(bench_micropan_hmmer(dins[i], 
+                                                                 hmm_pfam = '~/Escritorio/pfam-A/Pfam-A.hmm'))
+  res[i, 'Software'] <- 'Micropan_Hmmer'
+  res[i, 'Ne'] <- as.numeric(spl[2])
+  res[i, 'Replicate'] <- as.integer(sub('rep', '', spl[3]))
+}
+
+saveRDS(res, file = 'micropanHMMER_vs_sim/MICROPAN_HMMER.RDS')
 
