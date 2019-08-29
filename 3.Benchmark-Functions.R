@@ -557,5 +557,71 @@ bench_micropan_hmmer <- function(din, dout = 'micropanHmmer_vs_sim', hmm_pfam){
 }
 
 
+# bench_FindMyFriends_KmerSplit <- function(din, dout = 'FindMyFriends_vs_sim'){
+#   
+#   require(FindMyFriends)
+#   require(seqinr)
+#   
+#   faas <- list.files(path = din, pattern = '[.]faa$', full.names = TRUE)
+#   gffs <- list.files(path = din, pattern = '[.]gff$', full.names = TRUE)
+#   sim <- list.files(path = din, pattern = '[.]RDS$', full.names = TRUE)
+#   
+#   if (!dir.exists(dout)){
+#     dir.create(dout)
+#   }
+#   # dn <- dirname(gffs[1])
+#   dd <- paste0(dout, '/', din)
+#   if (dir.exists(dd)) unlink(dd, recursive = TRUE)
+#   dir.create(dd)
+#   
+#   file.copy(faas, dd, overwrite = TRUE)
+#   faas2 <- list.files(path = dd, pattern = '[.]faa$', full.names = TRUE)
+#   # Format headers
+#   nams <- lapply(faas2, function(x){
+#     gf <- grep(sub('[.]faa', '.gff', basename(x)), gffs, value = TRUE)
+#     rl <- readLines(gf)
+#     df <- pewit:::extractGffTable(rl)
+#     nhe <- paste0(df$ID,'__',df$Contig, ' # ', df$From, ' # ', df$To, ' # ', ifelse(df$Strand=='+', 1, -1))
+#     ff <- read.fasta(x)
+#     write.fasta(ff, names = nhe, file.out = x)
+#     cbind(nhe, df$ID)
+#   })
+#   nams <- do.call(rbind, nams)
+#   
+#   run_fmf <- function(faas){
+#     pan <- FindMyFriends::pangenome(faas, 
+#                                     translated = TRUE, 
+#                                     geneLocation = 'prodigal', 
+#                                     lowMem = F)
+#     cdh <- cdhitGrouping(pan, kmerSize = 5)
+#     nspl <- kmerSplit(cdh)
+#     nspl
+#   }
+#   
+#   clust <- run_fmf(faas = faas2)
+#   grp <- lapply(genes(clust, split='group'), names)
+#   grp <- lapply(grp, function(x) sub('__.+\\d', '', x))
+#   
+#   simu <- readRDS(sim)
+#   clus <- simu$gene_list
+#   seqs <- unlist(clus)
+#   nseqs <- length(seqs)
+#   mat_expect <- matrix(0L, nrow = nseqs, ncol = nseqs, dimnames = list(seqs, seqs))
+#   for (i in 1:length(clus)){
+#     ge <- clus[[i]]
+#     mat_expect[ge, ge] <- 1L
+#   }
+#   
+#   mat_observed <- matrix(0L, nrow = nseqs, ncol = nseqs, dimnames = list(seqs, seqs))
+#   for (i in 1:length(grp)){
+#     ge <- grp[[i]]
+#     mat_observed[ge, ge] <- 1L
+#   }
+#   
+#   
+#   res <- mat_expect %contingency% mat_observed
+#   return(res)
+#   
+# }
 
 

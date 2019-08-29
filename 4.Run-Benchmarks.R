@@ -205,3 +205,50 @@ for (i in seq_along(dins)){
 
 saveRDS(res, file = 'micropanHMMER_vs_sim/MICROPAN_HMMER.RDS')
 
+
+
+
+#############################
+## FINDMYFRIENDS KMERSPLIT ##
+#############################
+
+# library(parallel)
+# res <- mclapply(seq_along(dins), function(i){
+#   res <- data.frame(TN = integer(),
+#                     FP = integer(),
+#                     FN = integer(),
+#                     TP = integer(),
+#                     Software = character(),
+#                     Ne = numeric(),
+#                     Replicate = integer(), 
+#                     stringsAsFactors = FALSE)
+#   spl <- strsplit(dins[i], '_')[[1]]
+#   res[1, c('TN','FP','FN','TP')] <- unclass(bench_FindMyFriends_KmerSplit(dins[i]))
+#   res[1, 'Software'] <- 'FindMyFriends_KmerSplit'
+#   res[1, 'Ne'] <- as.numeric(spl[2])
+#   res[1, 'Replicate'] <- as.integer(sub('rep', '', spl[3]))
+#   res
+# }, mc.cores = 2)
+# res <- do.call(rbind, res)
+# 
+# res <- data.frame(TN = integer(),
+#                   FP = integer(),
+#                   FN = integer(),
+#                   TP = integer(),
+#                   Software = character(),
+#                   Ne = numeric(),
+#                   Replicate = integer(), 
+#                   stringsAsFactors = FALSE)
+# 
+# for (i in seq_along(dins)){
+#   spl <- strsplit(dins[i], '_')[[1]]
+#   res[i, c('TN','FP','FN','TP')] <- unclass(bench_FindMyFriends_KmerSplit(dins[i]))
+#   res[i, 'Software'] <- 'FindMyFriends_KmerSplit'
+#   res[i, 'Ne'] <- as.numeric(spl[2])
+#   res[i, 'Replicate'] <- as.integer(sub('rep', '', spl[3]))
+#   detach("package:FindMyFriends", unload=TRUE)
+# }
+# 
+# saveRDS(res, file = 'FindMyFriends_vs_sim/FINDMYFRIENDS_KMERSPLIT.RDS')
+
+
