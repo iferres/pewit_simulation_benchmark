@@ -42,6 +42,13 @@ res$F1_Score <- 2 * ((res$Precision * res$Recall) /
 # .. so:
 res$F1_Score[is.nan(res$F1_Score)] <- 0
 
+res$Specificity <- res$TN / (res$TN + res$FP)
+
+res$Youden_J <- res$Recall + res$Specificity - 1
+
+# Fowlkes-Mallows (G-measure) is preferred to F1 for clustering comparisons, in
+# practice, they are both very correlated.
+res$Fowlkes_Mallows <- sqrt(res$Precision * res$Recall)
 
 
 ##########
