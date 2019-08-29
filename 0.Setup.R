@@ -46,6 +46,10 @@ install_github('iferres/pewit', ref = 'bcda1ad')
 install.packages('micropan')
 
 
+# FindMyFriends (dev)
+devtools::install_github('thomasp85/FindMyFriends')
+
+
 
 ## Other packages needed ##
 install.packages('seqinr')
